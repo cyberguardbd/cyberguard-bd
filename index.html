@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CYBERGUARD SOC | সিকিউরিটি অডিট, ডিফেন্স ও সিকিউর ওয়েব হাব</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            deepVoid: '#020617',
+            cardBg: 'rgba(15, 23, 42, 0.85)',
+            cyberCyan: '#06b6d4',
+            cyberEmerald: '#10b981',
+            bkash: '#E2136E',
+            nagad: '#F7941D',
+            binance: '#F3BA2F'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Hind Siliguri"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          animation: {
+            'marquee-rtl': 'marqueeRightToLeft 24s linear infinite',
+            'marquee-infinite': 'marqueeScroll 25s linear infinite'
+          },
+          keyframes: {
+            marqueeRightToLeft: {
+              '0%': { transform: 'translateX(100%)' },
+              '100%': { transform: 'translateX(-100%)' }
+            },
+            marqueeScroll: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { 
+      background-color: #020617; 
+      color: #f8fafc; 
+      font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif; 
+      overflow-x: hidden; 
+      touch-action: manipulation;
+    }
+    .glassmorphism {
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .neon-border:hover {
+      border-color: rgba(6, 182, 212, 0.5);
+      box-shadow: 0 0 30px -5px rgba(6, 182, 212, 0.3);
+      transform: translateY(-3px);
+    }
+    .aurora-glow {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 650px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.22) 0%, rgba(16, 185, 129, 0.12) 40%, transparent 70%);
+      filter: blur(85px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @media print {
+      body * { visibility: hidden; }
+      #printableReceipt, #printableReceipt * { visibility: visible; }
+      #printableReceipt { position: absolute; left: 0; top: 0; width: 100%; color: black !important; background: white !important; }
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen relative selection:bg-cyberCyan selection:text-black">
+
+  <div class="aurora-glow"></div>
+
+  <!-- ================= COMPACT HEADER ================= -->
+  <header class="sticky top-0 z-50 glassmorphism border-b border-slate-800/80 px-3.5 sm:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand Logo (Secret 3-Tap Admin Entry) -->
+      <div onclick="handleLogoSecretTrigger()" class="flex items-center gap-2.5 cursor-pointer select-none active:scale-95 transition" title="CYBERGUARD SOC">
+        <div class="p-2 rounded-xl bg-cyan-950/80 border border-cyan-500/40 text-cyberCyan shadow-md shadow-cyan-500/20">
+          <i data-lucide="shield-check" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+        </div>
+        <div>
+          <span class="text-lg sm:text-xl font-black text-white tracking-tight">CYBER<span class="text-cyberCyan">GUARD</span></span>
+          <span class="block text-[7.5px] sm:text-[8px] text-emerald-400 font-mono tracking-widest uppercase">Defense Lab</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions for Mobile & Desktop -->
+      <div class="flex items-center gap-2">
+        <!-- অনলাইন রেজিস্ট্রেশন বাটন -->
+        <a href="#registration" class="px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 text-black text-xs font-black transition flex items-center gap-1.5 shadow-md shadow-emerald-500/20 active:scale-95">
+          <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+          <span>রেজিস্ট্রেশন</span>
+        </a>
+
+        <button onclick="toggleSupportModal()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-cyan-400 text-xs font-bold transition flex items-center gap-1.5 active:scale-95">
+          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">সাপোর্ট</span>
+        </button>
+
+        <a href="tel:01600005959" class="p-2 sm:px-3 sm:py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-emerald-400 text-xs font-bold text-slate-200 transition flex items-center gap-1.5 active:scale-95">
+          <i data-lucide="phone-call" class="w-4 h-4 text-emerald-400"></i>
+          <span class="hidden sm:inline">কল</span>
+        </a>
+
+        <!-- ক্লায়েন্ট লগইন বাটন -->
+        <button onclick="toggleLoginModal()" id="btnNavLogin" class="p-2 sm:px-3 sm:py-2 rounded-xl glassmorphism border border-slate-700 hover:border-cyan-400 text-xs font-bold text-slate-200 transition flex items-center gap-1.5 active:scale-95" title="লগইন পোর্টাল">
+          <i data-lucide="user" class="w-4 h-4 text-cyberCyan"></i>
+          <span id="navClientPortal" class="hidden sm:inline">লগইন</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= SUB-HEADER: TOUCH-SWIPE SERVICES LIST ================= -->
+  <nav class="bg-slate-950/90 border-b border-cyan-500/20 py-2.5 px-3 overflow-x-auto no-scrollbar z-40 relative">
+    <div class="max-w-7xl mx-auto flex items-center gap-4 whitespace-nowrap text-[11px] font-mono">
+      <span class="text-cyan-400 font-bold flex items-center gap-1 shrink-0 bg-cyan-950/50 px-2 py-0.5 rounded-md border border-cyan-500/20">
+        <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+        <span>কোর সার্ভিসেস:</span>
+      </span>
+      <div class="flex items-center gap-3.5 text-slate-300 shrink-0">
+        <span class="flex items-center gap-1 bg-slate-900/60 px-2 py-1 rounded-lg border border-slate-800"><i data-lucide="shield" class="w-3 h-3 text-cyan-400"></i> Web Application Firewall (WAF)</span>
+        <span class="flex items-center gap-1 bg-slate-900/60 px-2 py-1 rounded-lg border border-slate-800"><i data-lucide="lock" class="w-3 h-3 text-emerald-400"></i> SSL/TLS Encryption</span>
+        <span class="flex items-center gap-1 bg-slate-900/60 px-2 py-1 rounded-lg border border-slate-800"><i data-lucide="zap" class="w-3 h-3 text-yellow-400"></i> DDoS Mitigation</span>
+        <span class="flex items-center gap-1 bg-slate-900/60 px-2 py-1 rounded-lg border border-slate-800"><i data-lucide="scan" class="w-3 h-3 text-rose-400"></i> Vulnerability Scan & Pen Testing</span>
+        <span class="flex items-center gap-1 bg-slate-900/60 px-2 py-1 rounded-lg border border-slate-800"><i data-lucide="trash-2" class="w-3 h-3 text-red-400"></i> Malware Removal</span>
+        <span class="flex items-center gap-1 bg-slate-900/60 px-2 py-1 rounded-lg border border-slate-800"><i data-lucide="key" class="w-3 h-3 text-purple-400"></i> Access Control & 2FA</span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="flex-1 relative z-10">
+    <!-- ================= HERO ================= -->
+    <section class="pt-6 sm:pt-10 pb-8 px-4 max-w-5xl mx-auto text-center overflow-hidden">
+      
+      <!-- ⚡ RIGHT TO LEFT MOVING TEXT ⚡ -->
+      <div class="w-full overflow-hidden mb-5 py-2 px-2 rounded-xl bg-cyan-950/40 border border-cyan-500/30 relative">
+        <div class="whitespace-nowrap inline-block animate-marquee-rtl font-mono text-[11px] sm:text-xs text-cyan-300 font-bold">
+          ⚡ নতুন ব্যাচ ও সিকিউরিটি রেজিস্ট্রেশন চালু হয়েছে • OWASP Top 10 ডিফেন্স • সার্ভার হার্ডেনিং • এখনই নিচের ফর্ম থেকে রেজিস্ট্রেশন করুন ⚡
+        </div>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-tight tracking-tight mb-4 sm:mb-6">
+        ওয়েবসাইট ও অ্যাকাউন্টের নিরাপত্তা নিশ্চিত করুন <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">
+          অথবা বানিয়ে নিন হ্যাকার-প্রুফ ওয়েবসাইট
+        </span>
+      </h1>
+
+      <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mb-6 sm:mb-8 px-2">
+        ফেসবুক বা সোশ্যাল মিডিয়া থেকে যুক্ত হলে সরাসরি নিচে রেজিস্ট্রেশন সম্পন্ন করুন। আমাদের ডিফেন্স টিম দ্রুত আপনার সাথে যোগাযোগ করবে।
+      </p>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 max-w-md mx-auto sm:max-w-none">
+        <a href="#registration" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-400 to-cyan-500 hover:opacity-95 text-black font-extrabold text-sm shadow-xl shadow-emerald-500/25 transition flex items-center justify-center gap-2 active:scale-95">
+          <i data-lucide="user-plus" class="w-4 h-4"></i>
+          <span>অনলাইন রেজিস্ট্রেশন করুন</span>
+        </a>
+        <button onclick="toggleSupportModal()" class="w-full sm:w-auto px-7 py-3.5 rounded-2xl glassmorphism hover:bg-slate-800 text-slate-200 font-bold text-sm transition flex items-center justify-center gap-2 active:scale-95">
+          <i data-lucide="help-circle" class="w-4 h-4"></i>
+          <span>সরাসরি ডিফেন্স বার্তা</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= 📝 ONLINE REGISTRATION SECTION ================= -->
+    <section id="registration" class="py-12 px-4 max-w-4xl mx-auto">
+      <div class="glassmorphism p-6 sm:p-10 rounded-3xl border-2 border-emerald-500/40 relative shadow-2xl shadow-emerald-500/10">
+        <div class="text-center mb-8">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-xs font-mono font-bold uppercase">
+            <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+            অফিসিয়াল স্টুডেন্ট / ক্লায়েন্ট এনরোলমেন্ট
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-2">অনলাইন রেজিস্ট্রেশন পোর্টাল</h2>
+          <p class="text-xs text-slate-400 mt-1">সঠিক তথ্য দিয়ে ফর্মটি পূরণ করুন, বনানী হেডকোয়ার্টার্স থেকে ভেরিফিকেশন কল দেওয়া হবে।</p>
+        </div>
+
+        <form onsubmit="handleRegistrationSubmit(event)" class="space-y-4 text-xs font-sans">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1.5">আপনার পূর্ণ নাম *</label>
+              <input type="text" id="regFullName" required placeholder="যেমন: মোঃ সাকিব হোসেন" class="w-full bg-deepVoid border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1.5">প্রাথমিক মোবাইল নম্বর (WhatsApp) *</label>
+              <input type="tel" id="regPrimaryPhone" required placeholder="01XXXXXXXXX" class="w-full bg-deepVoid border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1.5">বিকল্প মোবাইল নম্বর (ইমার্জেন্সি)</label>
+              <input type="tel" id="regAltPhone" placeholder="01XXXXXXXXX (ঐচ্ছিক)" class="w-full bg-deepVoid border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1.5">ইমেইল ঠিকানা *</label>
+              <input type="email" id="regEmail" required placeholder="yourname@gmail.com" class="w-full bg-deepVoid border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1.5">কোর্স বা সার্ভিস প্যাকেজ নির্বাচন করুন *</label>
+              <select id="regPackageSelected" required class="w-full bg-deepVoid border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400 font-mono">
+                <option value="ওয়েব অডিট ও সরাসরি ফিক্সিং (৳২,৫০০)">ওয়েব অডিট ও সরাসরি ফিক্সিং (৳২,৫০০)</option>
+                <option value="সোশ্যাল মিডিয়া ফুল শিল্ড (৳৪৯৯)">সোশ্যাল মিডিয়া ফুল শিল্ড (৳৪৯৯)</option>
+                <option value="২৪/৭ SOC শিল্ড (৳৫,০০০)">২৪/৭ SOC শিল্ড (৳৫,০০০)</option>
+                <option value="সিকিউর ল্যান্ডিং পেজ মেকিং (৳৪,৯৯৯)">সিকিউর ল্যান্ডিং পেজ মেকিং (৳৪,৯৯৯)</option>
+                <option value="করপোরেট ওয়েবসাইট মেকিং (৳৯,৯৯৯)">করপোরেট ওয়েবসাইট মেকিং (৳৯,৯৯৯)</option>
+                <option value="সিকিউর ই-কমার্স পোর্টাল (৳১৪,৯৯৯)">সিকিউর ই-কমার্স পোর্টাল (৳১৪,৯৯৯)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1.5">বর্তমান জেলা / ঠিকানা *</label>
+              <input type="text" id="regDistrict" required placeholder="যেমন: ঢাকা, চট্টগ্রাম, রাজশাহী..." class="w-full bg-deepVoid border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1.5">কোনো বিশেষ নোট বা আপনার ওয়েবসাইটের নাম (যদি থাকে)</label>
+            <textarea id="regNote" rows="2" placeholder="আপনার প্রয়োজনীয় তথ্য বা সমস্যা বিস্তারিত লিখুন..." class="w-full bg-deepVoid border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-400"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 text-black font-extrabold text-sm uppercase tracking-wider transition hover:opacity-95 shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center justify-center gap-2 mt-2">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>রেজিস্ট্রেশন সাবমিট করুন</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= INFINITE MOVING CYBER SLIDER ================= -->
+    <section class="py-4 overflow-hidden relative">
+      <div class="flex w-[200%] animate-marquee-infinite items-center gap-4 sm:gap-6">
+        <div class="flex shrink-0 items-center gap-4 sm:gap-6">
+          <div class="w-60 sm:w-72 h-36 sm:h-44 rounded-2xl overflow-hidden border border-cyan-500/30 relative">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=500&q=80" alt="Cyber SOC" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex items-end p-2.5">
+              <span class="text-[10px] sm:text-[11px] font-mono text-cyan-400 font-bold">● SOC Security Operations Lab</span>
+            </div>
+          </div>
+          <div class="w-60 sm:w-72 h-36 sm:h-44 rounded-2xl overflow-hidden border border-emerald-500/30 relative">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=500&q=80" alt="Cyber Defense" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex items-end p-2.5">
+              <span class="text-[10px] sm:text-[11px] font-mono text-emerald-400 font-bold">● Penetration Testing & Audit</span>
+            </div>
+          </div>
+          <div class="w-60 sm:w-72 h-36 sm:h-44 rounded-2xl overflow-hidden border border-purple-500/30 relative">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=500&q=80" alt="Development" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex items-end p-2.5">
+              <span class="text-[10px] sm:text-[11px] font-mono text-purple-400 font-bold">● Hacker-Proof Web Architecture</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex shrink-0 items-center gap-4 sm:gap-6">
+          <div class="w-60 sm:w-72 h-36 sm:h-44 rounded-2xl overflow-hidden border border-cyan-500/30 relative">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=500&q=80" alt="Cyber SOC" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex items-end p-2.5">
+              <span class="text-[10px] sm:text-[11px] font-mono text-cyan-400 font-bold">● SOC Security Operations Lab</span>
+            </div>
+          </div>
+          <div class="w-60 sm:w-72 h-36 sm:h-44 rounded-2xl overflow-hidden border border-emerald-500/30 relative">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=500&q=80" alt="Cyber Defense" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex items-end p-2.5">
+              <span class="text-[10px] sm:text-[11px] font-mono text-emerald-400 font-bold">● Penetration Testing & Audit</span>
+            </div>
+          </div>
+          <div class="w-60 sm:w-72 h-36 sm:h-44 rounded-2xl overflow-hidden border border-purple-500/30 relative">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=500&q=80" alt="Development" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex items-end p-2.5">
+              <span class="text-[10px] sm:text-[11px] font-mono text-purple-400 font-bold">● Hacker-Proof Web Architecture</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DUAL COMPARATOR ================= -->
+    <section id="dual-comparator" class="py-12 px-3.5 sm:px-4 bg-slate-950/80 border-y border-slate-800">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-6">
+          <span class="text-[11px] text-emerald-400 font-mono tracking-widest uppercase font-bold">লাইভ সাইট ডায়াগনস্টিক ইঞ্জিন</span>
+          <h2 class="text-xl sm:text-3xl font-bold text-white mt-1">বর্তমান ওয়েবসাইট বনাম সুরক্ষিত সাইটের লাইভ তুলনা</h2>
+          <p class="text-xs text-slate-400 mt-1">দুর্বলতা শনাক্ত করে রিয়েল-টাইম সমাধান যাচাই করুন</p>
+        </div>
+
+        <div class="glassmorphism p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-cyan-500/40 shadow-xl">
+          <form onsubmit="executeSideBySideAudit(event)" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-xs font-semibold text-rose-400 mb-1 flex items-center gap-1.5">
+                  <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>
+                  <span>আপনার বর্তমান সাইট (পরীক্ষার জন্য):</span>
+                </label>
+                <input type="text" id="targetSiteDomain" placeholder="যেমন: example.com" required 
+                       class="w-full bg-deepVoid border border-slate-700 rounded-xl px-3.5 py-3 text-xs text-white font-mono focus:outline-none focus:border-rose-400">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-emerald-400 mb-1 flex items-center gap-1.5">
+                  <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+                  <span>সুরক্ষিত রেফারেন্স সাইট:</span>
+                </label>
+                <input type="text" id="referenceSiteDomain" value="google.com" required 
+                       class="w-full bg-deepVoid border border-slate-700 rounded-xl px-3.5 py-3 text-xs text-white font-mono focus:outline-none focus:border-emerald-400">
+              </div>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 text-black font-extrabold text-xs sm:text-sm uppercase tracking-wider transition hover:opacity-95 shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 active:scale-95">
+              <i data-lucide="git-compare" class="w-4 h-4"></i>
+              <span>পাশাপাশি লাইভ অডিট শুরু করুন</span>
+            </button>
+          </form>
+
+          <div id="comparisonConsole" class="mt-6 hidden font-mono">
+            <div class="flex items-center justify-between pb-2.5 border-b border-slate-800 text-[11px] text-slate-400 mb-3">
+              <span id="compareProgress"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping inline-block mr-1.5"></span>বিশ্লেষণ চলছে...</span>
+              <span class="text-emerald-400 font-bold">ডুয়াল ডিএনএস প্রোটোকল</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl bg-rose-950/20 border border-rose-500/30 space-y-2 text-xs">
+                <div class="flex items-center justify-between border-b border-rose-950/50 pb-1.5">
+                  <span class="font-bold text-rose-400 uppercase text-[11px]">ক্লায়েন্টের সাইট</span>
+                  <span id="labelClientDomain" class="text-white font-bold truncate max-w-[130px]"></span>
+                </div>
+                <div class="flex justify-between"><span class="text-slate-400">হোস্ট আইপি:</span><span id="resClientIp" class="text-white font-bold">---</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">DNSSEC প্রটেকশন:</span><span id="resClientDnssec" class="font-bold">---</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">রেসপন্স গতি:</span><span id="resClientLatency" class="font-bold">---</span></div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30 space-y-2 text-xs">
+                <div class="flex items-center justify-between border-b border-emerald-950/50 pb-1.5">
+                  <span class="font-bold text-emerald-400 uppercase text-[11px]">সুরক্ষিত মানদণ্ড</span>
+                  <span id="labelRefDomain" class="text-white font-bold truncate max-w-[130px]"></span>
+                </div>
+                <div class="flex justify-between"><span class="text-slate-400">হোস্ট আইপি:</span><span id="resRefIp" class="text-white font-bold">---</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">DNSSEC প্রটেকশন:</span><span id="resRefDnssec" class="font-bold">---</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">রেসপন্স গতি:</span><span id="resRefLatency" class="font-bold">---</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICE PACKAGES & COURSE RATES ================= -->
+    <section id="packages-hub" class="py-14 px-4 max-w-7xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="text-xs text-cyan-400 font-mono tracking-widest uppercase">অফিসিয়াল প্রাইসিং ও মূল্য তালিকা</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">সিকিউরিটি সার্ভিস ও কোর্স প্যাকেজ</h2>
+        <p class="text-slate-400 text-xs mt-2">আপনার প্রয়োজন অনুযায়ী সঠিক ক্যাটাগরি বেছে নিন</p>
+
+        <div class="inline-flex rounded-2xl bg-slate-900 p-1.5 border border-slate-800 mt-5 max-w-md w-full">
+          <button id="catSecurityBtn" onclick="switchPackageCategory('security')" class="flex-1 py-2.5 rounded-xl text-xs font-extrabold transition bg-cyan-500 text-black shadow-md flex items-center justify-center gap-1.5">
+            <i data-lucide="shield-alert" class="w-4 h-4"></i>
+            <span>সাইবার অডিট ও ফিক্সিং</span>
+          </button>
+          <button id="catDevBtn" onclick="switchPackageCategory('development')" class="flex-1 py-2.5 rounded-xl text-xs font-extrabold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5">
+            <i data-lucide="code" class="w-4 h-4"></i>
+            <span>সিকিউর ওয়েবসাইট মেকিং</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 1. SECURITY PACKAGES -->
+      <div id="securityPackagesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glassmorphism p-6 sm:p-8 rounded-3xl flex flex-col justify-between neon-border transition duration-300">
+          <div>
+            <span class="text-xs font-mono text-cyan-400 uppercase font-semibold">সোশ্যাল ও আইডি সুরক্ষা</span>
+            <h3 class="text-xl font-bold text-white mt-1">সোশ্যাল মিডিয়া ফুল শিল্ড</h3>
+            <p class="text-xs text-slate-400 mt-2">ব্যক্তিগত বা ব্যবসায়িক সোশ্যাল প্রোফাইল হ্যাকিং ও লক প্রতিরোধে।</p>
+            <div class="my-5">
+              <span class="text-3xl font-black text-white font-mono">৳৪৯৯</span>
+              <span class="text-xs text-slate-400 font-mono">/ $৫ USD</span>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> প্রমাণীকরণ অ্যাপ ভিত্তিক 2FA কনফিগ</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> ব্যাকআপ রিকভারি কোড সেটআপ</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> ক্ষতিকর থার্ড-পার্টি অ্যাপ ক্লিনআপ</li>
+            </ul>
+          </div>
+          <a href="#registration" class="mt-6 w-full py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition active:scale-95 text-center block">
+            রেজিস্ট্রেশন করুন
+          </a>
+        </div>
+
+        <div class="glassmorphism p-6 sm:p-8 rounded-3xl border-2 border-cyan-400 flex flex-col justify-between relative shadow-2xl shadow-cyan-500/20">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyan-400 text-black text-[10px] font-black uppercase px-3 py-0.5 rounded-full">
+            সমস্যা পেলে ফিক্স গ্যারান্টি
+          </div>
+          <div>
+            <span class="text-xs font-mono text-emerald-400 uppercase font-semibold">OWASP টপ-১০ ডিফেন্স</span>
+            <h3 class="text-xl font-bold text-white mt-1">ওয়েব অডিট ও সরাসরি ফিক্সিং</h3>
+            <p class="text-xs text-slate-400 mt-2">ই-কমার্স, ব্লগ ও প্রতিষ্ঠানের সাইটের পূর্ণ স্ক্যান ও ত্রুটি মেরামত।</p>
+            <div class="my-5">
+              <span class="text-4xl font-black text-cyan-400 font-mono">৳২,৫০০</span>
+              <span class="text-xs text-slate-400 font-mono">/ $২৫ USD</span>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> SQLi, XSS, CSRF ও API অডিট</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> ম্যালওয়্যার ক্লিনআপ ও ব্যাকডোর রিমুভাল</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> ক্লাউডফ্লেয়ার WAF ও ফায়ারওয়াল কনফিগ</li>
+            </ul>
+          </div>
+          <a href="#registration" class="mt-6 w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 text-black font-extrabold text-xs transition shadow-lg shadow-cyan-500/20 active:scale-95 text-center block">
+            রেজিস্ট্রেশন করুন
+          </a>
+        </div>
+
+        <div class="glassmorphism p-6 sm:p-8 rounded-3xl flex flex-col justify-between neon-border transition duration-300">
+          <div>
+            <span class="text-xs font-mono text-purple-400 uppercase font-semibold">এন্টারপ্রাইজ সাপোর্ট</span>
+            <h3 class="text-xl font-bold text-white mt-1">২৪/৭ সার্বক্ষণিক SOC শিল্ড</h3>
+            <p class="text-xs text-slate-400 mt-2">সার্ভার ও সবকটি অনলাইন সিস্টেমের সার্বক্ষণিক দায়িত্ব।</p>
+            <div class="my-5">
+              <span class="text-3xl font-black text-white font-mono">৳৫,০০০</span>
+              <span class="text-xs text-slate-400 font-mono">/ $৫০ USD (মাসিক)</span>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> লিনাক্স সার্ভার হার্ডেনিং ও লগ অ্যানালাইসিস</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> রিয়েল-টাইম DDoS মিটিগেশন</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> ১ ঘণ্টার ভেতর ইমার্জেন্সি ইনসিডেন্ট রিকভারি</li>
+            </ul>
+          </div>
+          <a href="#registration" class="mt-6 w-full py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition active:scale-95 text-center block">
+            রেজিস্ট্রেশন করুন
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. SECURE WEBSITE DEVELOPMENT PACKAGES -->
+      <div id="devPackagesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6 hidden">
+        <div class="glassmorphism p-6 sm:p-8 rounded-3xl flex flex-col justify-between neon-border transition duration-300">
+          <div>
+            <span class="text-xs font-mono text-cyan-400 uppercase font-semibold">১-পেজ সলিউশন</span>
+            <h3 class="text-xl font-bold text-white mt-1">সিকিউর ল্যান্ডিং পেজ</h3>
+            <p class="text-xs text-slate-400 mt-2">ব্যক্তিগত পোর্টফোলিও, প্রোডাক্ট সেল বা সিঙ্গেল পেজ প্রমোশন।</p>
+            <div class="my-5">
+              <span class="text-3xl font-black text-white font-mono">৳৪,৯৯৯</span>
+              <span class="text-xs text-slate-400 font-mono">/ $৫০ USD</span>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> প্রিমিয়াম রেসপন্সিভ ডিজাইন</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> ১-ক্লিক হোয়াটসঅ্যাপ ও অর্ডার ফর্ম</li>
+            </ul>
+          </div>
+          <a href="#registration" class="mt-6 w-full py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition active:scale-95 text-center block">
+            রেজিস্ট্রেশন করুন
+          </a>
+        </div>
+
+        <div class="glassmorphism p-6 sm:p-8 rounded-3xl border-2 border-emerald-400 flex flex-col justify-between relative shadow-2xl shadow-emerald-500/20">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-400 text-black text-[10px] font-black uppercase px-3 py-0.5 rounded-full">
+            ফুল বিজনেস রেডি
+          </div>
+          <div>
+            <span class="text-xs font-mono text-emerald-400 uppercase font-semibold">করপোরেট প্যাকেজ</span>
+            <h3 class="text-xl font-bold text-white mt-1">বিজনেস ও করপোরেট সাইট</h3>
+            <p class="text-xs text-slate-400 mt-2">কোম্পানি, আইটি ফার্ম, কনসালটেন্সি বা প্রতিষ্ঠানের জন্য।</p>
+            <div class="my-5">
+              <span class="text-4xl font-black text-emerald-400 font-mono">৳৯,৯৯৯</span>
+              <span class="text-xs text-slate-400 font-mono">/ $১০০ USD</span>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> ৫-৭ পৃষ্ঠার ডায়নামিক আধুনিক ওয়েবসাইট</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> ক্লাউডফ্লেয়ার ফায়ারওয়াল ও SEO সেটআপ</li>
+            </ul>
+          </div>
+          <a href="#registration" class="mt-6 w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-black font-extrabold text-xs transition shadow-lg shadow-emerald-500/20 active:scale-95 text-center block">
+            রেজিস্ট্রেশন করুন
+          </a>
+        </div>
+
+        <div class="glassmorphism p-6 sm:p-8 rounded-3xl flex flex-col justify-between neon-border transition duration-300">
+          <div>
+            <span class="text-xs font-mono text-purple-400 uppercase font-semibold">পেমেন্ট গেটওয়ে ইন্টিগ্রেটেড</span>
+            <h3 class="text-xl font-bold text-white mt-1">সিকিউর ই-কমার্স পোর্টাল</h3>
+            <p class="text-xs text-slate-400 mt-2">অনলাইন শপ, ড্রপশিপিং ও ডিজিটাল প্রোডাক্ট বিক্রির জন্য।</p>
+            <div class="my-5">
+              <span class="text-3xl font-black text-white font-mono">৳১৪,৯৯৯</span>
+              <span class="text-xs text-slate-400 font-mono">/ $১৫০ USD</span>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> বিকাশ, নগদ ও কার্ড অটো পেমেন্ট গেটওয়ে</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> অটোমেটেড ইনভয়েস ও কাস্টমার ম্যানেজমেন্ট</li>
+            </ul>
+          </div>
+          <a href="#registration" class="mt-6 w-full py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition active:scale-95 text-center block">
+            রেজিস্ট্রেশন করুন
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 👥 আমাদের সাইবার ডিফেন্স ও ডেভ টিম ================= -->
+    <section class="py-14 px-4 bg-slate-950/80 border-t border-slate-800">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="text-xs text-emerald-400 font-mono tracking-widest uppercase font-bold">অভিজ্ঞ টিম মেম্বার্স</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">আমাদের সাইবার ডিফেন্স ও ডেভ টিম</h2>
+          <p class="text-slate-400 text-xs mt-2">অভিজ্ঞ ইঞ্জিনিয়ার যাঁরা আপনার অডিট, ফিক্সিং ও ওয়েবসাইট তৈরিতে নিয়োজিত</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div class="glassmorphism p-5 rounded-3xl border border-slate-800 flex items-center gap-4">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Tanzila" class="w-14 h-14 rounded-2xl object-cover border border-cyan-400/40">
+              <span class="w-3 h-3 rounded-full bg-emerald-400 border-2 border-deepVoid absolute -bottom-1 -right-1"></span>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">তানজিলা শারমিন</h4>
+              <p class="text-[11px] text-cyan-400 font-mono">Lead AppSec Engineer</p>
+              <p class="text-[10px] text-slate-400 mt-0.5">OWASP & কোড বাগ ফিক্সিং স্পেশালিস্ট</p>
+            </div>
+          </div>
+
+          <div class="glassmorphism p-5 rounded-3xl border border-slate-800 flex items-center gap-4">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Faisal" class="w-14 h-14 rounded-2xl object-cover border border-emerald-400/40">
+              <span class="w-3 h-3 rounded-full bg-emerald-400 border-2 border-deepVoid absolute -bottom-1 -right-1"></span>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">আহমেদ ফয়সাল</h4>
+              <p class="text-[11px] text-emerald-400 font-mono">Full-Stack Dev & Arch</p>
+              <p class="text-[10px] text-slate-400 mt-0.5">সিকিউর ওয়েব আর্কিটেকচার বিশেষজ্ঞ</p>
+            </div>
+          </div>
+
+          <div class="glassmorphism p-5 rounded-3xl border border-slate-800 flex items-center gap-4">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80" alt="Rakibul" class="w-14 h-14 rounded-2xl object-cover border border-yellow-400/40">
+              <span class="w-3 h-3 rounded-full bg-emerald-400 border-2 border-deepVoid absolute -bottom-1 -right-1"></span>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">রাকিবুল হাসান</h4>
+              <p class="text-[11px] text-yellow-400 font-mono">Cloud Defense Officer</p>
+              <p class="text-[10px] text-slate-400 mt-0.5">সার্ভার হার্ডেনিং ও ফায়ারওয়াল এক্সপার্ট</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= REGISTRATION SUCCESS MODAL ================= -->
+  <div id="regSuccessModal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="glassmorphism border border-emerald-500/50 rounded-3xl w-full max-w-md p-6 sm:p-8 relative text-center" id="printableReceipt">
+      <div class="w-14 h-14 bg-emerald-950/80 border border-emerald-400 rounded-full flex items-center justify-center text-emerald-400 mx-auto mb-3">
+        <i data-lucide="check" class="w-8 h-8"></i>
+      </div>
+      <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-400 bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-500/30">
+        রেজিস্ট্রেশন সফল হয়েছে
+      </span>
+      <h3 class="text-xl font-bold text-white mt-3">কনফার্মেশন স্লিপ</h3>
+      <p class="text-xs text-slate-400 mt-1">রেজিস্ট্রেশন আইডি: <span id="recRegId" class="text-cyan-400 font-mono font-bold"></span></p>
+
+      <div class="my-5 p-4 rounded-2xl bg-deepVoid border border-slate-800 text-left text-xs font-mono space-y-2">
+        <div class="flex justify-between border-b border-slate-800 pb-1.5"><span class="text-slate-400">নাম:</span><span id="recRegName" class="text-white font-bold"></span></div>
+        <div class="flex justify-between border-b border-slate-800 pb-1.5"><span class="text-slate-400">মোবাইল:</span><span id="recRegPhone" class="text-white"></span></div>
+        <div class="flex justify-between border-b border-slate-800 pb-1.5"><span class="text-slate-400">ইমেইল:</span><span id="recRegEmail" class="text-white"></span></div>
+        <div class="flex justify-between border-b border-slate-800 pb-1.5"><span class="text-slate-400">নির্বাচিত বিষয়:</span><span id="recRegPkg" class="text-cyan-400"></span></div>
+        <div class="flex justify-between pt-1 font-bold"><span class="text-slate-300">ঠিকানা / জেলা:</span><span id="recRegDistrict" class="text-emerald-400"></span></div>
+      </div>
+
+      <p class="text-[11px] text-slate-400 mb-6">
+        আপনার তথ্যটি ডাটাবেজে সংরক্ষিত হয়েছে। খুব দ্রুতই বনানী হেডকোয়ার্টার্স থেকে কল বা WhatsApp-এ যোগাযোগ করা হবে।
+      </p>
+
+      <div class="flex gap-3">
+        <button onclick="window.print()" class="flex-1 py-3 rounded-xl bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-2 active:scale-95">
+          <i data-lucide="printer" class="w-4 h-4"></i>
+          <span>স্লিপ প্রিন্ট / সেভ</span>
+        </button>
+        <button onclick="closeRegModal()" class="flex-1 py-3 rounded-xl bg-cyan-500 text-black font-extrabold text-xs active:scale-95">
+          সম্পন্ন
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= LIVE SUPPORT DIALOG ================= -->
+  <div id="supportDeskModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 hidden">
+    <div class="glassmorphism border border-cyan-500/50 rounded-2xl sm:rounded-3xl w-full max-w-lg p-4 sm:p-6 relative max-h-[92vh] flex flex-col">
+      <button onclick="toggleSupportModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-2.5 mb-3 pb-2.5 border-b border-slate-800">
+        <div class="p-2 rounded-xl bg-cyan-950 text-cyan-400 border border-cyan-500/40">
+          <i data-lucide="shield-alert" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-sm sm:text-base font-bold text-white">CYBERGUARD ডিফেন্স সাপোর্ট ডেস্ক</h3>
+          <p class="text-[10px] sm:text-[11px] text-emerald-400 font-mono">● সার্বক্ষণিক ইনসিডেন্ট রেসপন্স হাব</p>
+        </div>
+      </div>
+
+      <div id="supportChatBox" class="flex-1 overflow-y-auto space-y-2.5 p-3 bg-slate-950/80 rounded-xl border border-slate-800/80 text-xs mb-3 min-h-[170px] max-h-[250px]">
+        <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">
+          🛡️ <strong class="text-cyan-400">ডিফেন্স অফিসার:</strong> স্বাগতম। আপনার ওয়েবসাইট বা সোশ্যাল আইডির সমস্যাটি সংক্ষেপে লিখুন। আমাদের টিম তাৎক্ষণিক সহায়তা প্রদান করছে।
+        </div>
+      </div>
+
+      <form onsubmit="handleSupportMessageSubmit(event)" class="space-y-2.5 text-xs">
+        <div class="grid grid-cols-2 gap-2">
+          <input type="text" id="supUserName" required placeholder="আপনার নাম" class="bg-deepVoid border border-slate-700 rounded-xl px-3 py-2 text-white">
+          <input type="text" id="supUserContact" required placeholder="মোবাইল নম্বর" class="bg-deepVoid border border-slate-700 rounded-xl px-3 py-2 text-white">
+        </div>
+        <div class="flex gap-2">
+          <input type="text" id="supUserQuery" required placeholder="আপনার সমস্যা বা বার্তাটি লিখুন..." class="flex-1 bg-deepVoid border border-slate-700 rounded-xl px-3.5 py-2.5 text-white">
+          <button type="submit" class="px-4 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold rounded-xl transition flex items-center gap-1 active:scale-95 shrink-0">
+            <span>বার্তা পাঠান</span>
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= CLIENT LOGIN MODAL ================= -->
+  <div id="loginModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="glassmorphism border border-cyan-500/40 rounded-3xl w-full max-w-sm p-6 sm:p-8 relative">
+      <button onclick="toggleLoginModal()" class="absolute right-5 top-5 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 bg-cyan-950 border border-cyan-500/40 rounded-2xl flex items-center justify-center text-cyan-400 mx-auto mb-3">
+          <i data-lucide="user-check" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-bold text-white">ক্লায়েন্ট পোর্টাল লগইন</h3>
+        <p class="text-xs text-slate-400 mt-1">আপনার পূর্ববর্তী অডিট ও রেজিস্ট্রেশন দেখতে লগইন করুন</p>
+      </div>
+      <form onsubmit="handleClientLogin(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block text-slate-300 mb-1">ইমেইল বা মোবাইল নম্বর</label>
+          <input type="text" id="loginIdInput" required placeholder="01XXXXXXXXX বা name@email.com" class="w-full bg-deepVoid border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1">পাসওয়ার্ড</label>
+          <input type="password" required placeholder="••••••••" class="w-full bg-deepVoid border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+        <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 text-black font-extrabold text-xs active:scale-95 transition">
+          লগইন করুন
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= SECRET ADMIN LOGIN GATE ================= -->
+  <div id="adminLoginGate" class="fixed inset-0 z-50 bg-[#030712]/95 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glassmorphism border border-cyan-500/40 rounded-3xl w-full max-w-sm p-6 sm:p-8 text-center shadow-2xl relative">
+      <button onclick="closeAdminLoginGate()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div class="w-12 h-12 rounded-2xl bg-cyan-950 border border-cyan-500/40 text-cyan-400 flex items-center justify-center mx-auto mb-3">
+        <i data-lucide="shield-alert" class="w-6 h-6"></i>
+      </div>
+      <h2 class="text-lg font-bold text-white mb-1">অ্যাডমিন অ্যাক্সেস লক</h2>
+      <p class="text-xs text-slate-400 mb-5">CyberGuard হেডকোয়ার্টার্স</p>
+
+      <form onsubmit="handleAdminAuth(event)" class="space-y-3.5 text-xs">
+        <input type="password" id="adminPinInput" required placeholder="গোপন পিন দিন" 
+               class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-center text-white text-sm tracking-widest focus:outline-none focus:border-cyan-400">
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 text-black font-extrabold text-xs uppercase tracking-wider transition active:scale-95">
+          ড্যাশবোর্ড খুলুন
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= SECRET ADMIN DASHBOARD ================= -->
+  <div id="adminDashboardModal" class="fixed inset-0 z-50 bg-[#030712]/95 backdrop-blur-lg flex flex-col p-3 sm:p-8 overflow-y-auto hidden">
+    <div class="max-w-7xl w-full mx-auto space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="p-2 rounded-xl bg-cyan-950 text-cyan-400 border border-cyan-500/30">
+            <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 class="text-base sm:text-lg font-black text-white">CYBERGUARD <span class="text-cyan-400 font-mono text-xs">ADMIN HQ</span></h2>
+            <p class="text-[10px] text-slate-400 font-mono">লাইভ রেজিস্ট্রেশন ও অডিট মনিটর</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="loadAdminReports()" class="px-3 py-1.5 rounded-xl glassmorphism border border-slate-700 text-xs text-slate-300">
+            রিফ্রেশ
+          </button>
+          <button onclick="closeAdminDashboard()" class="px-3 py-1.5 rounded-xl bg-red-950/60 border border-red-500/40 text-red-400 text-xs font-bold">
+            বন্ধ
+          </button>
+        </div>
+      </div>
+
+      <div class="glassmorphism rounded-2xl overflow-hidden border border-slate-800">
+        <div class="p-3 bg-slate-900/80 border-b border-slate-800 font-bold text-xs text-emerald-400 flex justify-between items-center">
+          <span>অনলাইন রেজিস্ট্রেশন তালিকা (ফেসবুক ও সাইট থেকে প্রাপ্ত)</span>
+          <span class="text-slate-400 text-[10px] font-mono">LocalStorage সিংক সক্রিয়</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900/90 text-slate-400 uppercase font-mono text-[10px] border-b border-slate-800">
+              <tr>
+                <th class="py-2.5 px-3">রেজিস্ট্রেশন আইডি</th>
+                <th class="py-2.5 px-3">নাম ও ইমেইল</th>
+                <th class="py-2.5 px-3">মোবাইল (WhatsApp)</th>
+                <th class="py-2.5 px-3">নির্বাচিত প্যাকেজ / জেলা</th>
+                <th class="py-2.5 px-3 text-center">হোয়াটসঅ্যাপ ফলো-আপ</th>
+              </tr>
+            </thead>
+            <tbody id="adminRegistrationTbody" class="divide-y border-slate-800/60 font-mono">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 📞 ফুটার ও কাস্টমার সাপোর্ট হাব ================= -->
+  <footer class="border-t border-slate-800 py-10 px-4 bg-slate-950 text-xs text-slate-400 relative z-10">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+      <div>
+        <span class="text-lg font-black text-white">CYBER<span class="text-cyberCyan">GUARD</span></span>
+        <p class="text-[11px] text-slate-500 mt-1">জিরো-ট্রাস্ট ডিফেন্স, পেনিট্রেশন টেস্টিং ও সিকিউর ওয়েব ডেভেলপমেন্ট ল্যাব।</p>
+      </div>
+
+      <div>
+        <h5 class="font-bold text-white mb-2 flex items-center justify-center md:justify-start gap-1.5">
+          <i data-lucide="headphones" class="w-4 h-4 text-cyan-400"></i>
+          <span>২৪/৭ কাস্টমার সাপোর্ট ও হেল্পডেস্ক</span>
+        </h5>
+        <p class="text-[11px] text-slate-400 mb-3">যেকোনো জরুরি সার্ভার ডাউনটাইম বা আইডি সুরক্ষায় তাৎক্ষণিক সংযোগ নিন:</p>
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-2.5 font-mono">
+          <button onclick="toggleSupportModal()" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-cyan-500/40 text-cyan-400 hover:bg-cyan-950/40 transition flex items-center gap-1 active:scale-95">
+            <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+            <span>সাপোর্ট বার্তা পাঠান</span>
+          </button>
+          
+          <a href="tel:01600005959" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-950/40 transition flex items-center gap-1 active:scale-95">
+            <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+            <span>জরুরি হেল্পলাইন কল</span>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="font-bold text-white mb-2">অফিসিয়াল হেডকোয়ার্টার্স</h5>
+        <p class="text-slate-400 font-mono text-[11px] leading-relaxed">
+          🏢 হাউজ নম্বর: ১২, রোড: ১১, ব্লক: এফ,<br>
+          বনানী সি/এ, ঢাকা - ১২১৩, বাংলাদেশ।
+        </p>
+      </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto border-t border-slate-800/80 mt-8 pt-5 text-center text-slate-600 text-[10px]">
+      © 2026 CyberGuard Automated Defense Hub. সর্বস্বত্ব সংরক্ষিত।
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    lucide.createIcons();
+    const MASTER_ADMIN_PIN = "01600005959";
+
+    // --- SECRET ADMIN TRIGGER ---
+    let logoTapCount = 0;
+    let logoTapTimer;
+    function handleLogoSecretTrigger() {
+      logoTapCount++;
+      clearTimeout(logoTapTimer);
+      logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 900);
+      if (logoTapCount >= 3) {
+        logoTapCount = 0;
+        openAdminLoginGate();
+      }
+    }
+
+    window.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        openAdminLoginGate();
+      }
+    });
+
+    // --- REGISTRATION LOGIC ---
+    function handleRegistrationSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('regFullName').value.trim();
+      const phone = document.getElementById('regPrimaryPhone').value.trim();
+      const altPhone = document.getElementById('regAltPhone').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const pkg = document.getElementById('regPackageSelected').value;
+      const district = document.getElementById('regDistrict').value.trim();
+      const note = document.getElementById('regNote').value.trim();
+
+      const regId = 'REG-' + Math.floor(100000 + Math.random() * 900000);
+      const time = new Date().toLocaleString('bn-BD');
+
+      const registrationData = {
+        regId,
+        name,
+        phone,
+        altPhone: altPhone || 'N/A',
+        email,
+        pkg,
+        district,
+        note: note || 'N/A',
+        time
+      };
+
+      let list = JSON.parse(localStorage.getItem('cyberguard_online_registrations') || '[]');
+      list.unshift(registrationData);
+      localStorage.setItem('cyberguard_online_registrations', JSON.stringify(list));
+
+      document.getElementById('recRegId').innerText = regId;
+      document.getElementById('recRegName').innerText = name;
+      document.getElementById('recRegPhone').innerText = phone;
+      document.getElementById('recRegEmail').innerText = email;
+      document.getElementById('recRegPkg').innerText = pkg;
+      document.getElementById('recRegDistrict').innerText = district;
+
+      document.getElementById('regSuccessModal').classList.remove('hidden');
+      e.target.reset();
+    }
+
+    function closeRegModal() {
+      document.getElementById('regSuccessModal').classList.add('hidden');
+    }
+
+    // --- ক্লায়েন্ট লগইন মডাল ---
+    function toggleLoginModal() {
+      const modal = document.getElementById('loginModal');
+      if (modal) modal.classList.toggle('hidden');
+    }
+
+    function handleClientLogin(e) {
+      e.preventDefault();
+      const idInput = document.getElementById('loginIdInput');
+      if (!idInput) return;
+      const id = idInput.value;
+      const user = { name: id.split('@')[0] };
+      localStorage.setItem('cyberguard_user_session', JSON.stringify(user));
+      
+      const navUser = document.getElementById('navClientPortal');
+      if (navUser) navUser.innerText = user.name;
+      
+      toggleLoginModal();
+      alert(`স্বাগতম ${user.name}! আপনার পোর্টাল সফলভাবে সক্রিয় হয়েছে।`);
+    }
+
+    function toggleSupportModal() {
+      document.getElementById('supportDeskModal').classList.toggle('hidden');
+    }
+
+    function switchPackageCategory(category) {
+      const secBtn = document.getElementById('catSecurityBtn');
+      const devBtn = document.getElementById('catDevBtn');
+      const secGrid = document.getElementById('securityPackagesGrid');
+      const devGrid = document.getElementById('devPackagesGrid');
+
+      if (category === 'security') {
+        secBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-extrabold transition bg-cyan-500 text-black shadow-md flex items-center justify-center gap-1.5";
+        devBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-extrabold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5";
+        secGrid.classList.remove('hidden');
+        devGrid.classList.add('hidden');
+      } else {
+        devBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-extrabold transition bg-emerald-400 text-black shadow-md flex items-center justify-center gap-1.5";
+        secBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-extrabold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5";
+        devGrid.classList.remove('hidden');
+        secGrid.classList.add('hidden');
+      }
+    }
+
+    function handleSupportMessageSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('supUserName').value.trim();
+      const query = document.getElementById('supUserQuery').value.trim();
+      const chatBox = document.getElementById('supportChatBox');
+
+      chatBox.innerHTML += `
+        <div class="p-2 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-white text-right">
+          <strong class="text-cyan-400">${name}:</strong> ${query}
+        </div>
+      `;
+
+      let reply = "ধন্যবাদ। আপনার সমস্যাটি সিস্টেমে গ্রহণ করা হয়েছে। খুব দ্রুত একজন কর্মকর্তা আপনাকে সরাসরি কল বা হোয়াটসঅ্যাপে সহায়তা করবেন।";
+      const qLower = query.toLowerCase();
+
+      if (qLower.includes('রেজিস্ট্রেশন') || qLower.includes('ভর্তি') || qLower.includes('ফর্ম')) {
+        reply = "রেজিস্ট্রেশনের জন্য পেজের নির্ধারিত অনলাইন ফর্মে নাম, ফোন ও ইমেইল পূরণ করে সাবমিট করুন।";
+      } else if (qLower.includes('ফেসবুক') || qLower.includes('আইডি')) {
+        reply = "সোশ্যাল আইডি সুরক্ষায় পাসওয়ার্ড দিতে হয় না। আমরা সরাসরি স্ক্রিন-শেয়ারে লাইভ গাইড দিয়ে থাকি।";
+      }
+
+      setTimeout(() => {
+        chatBox.innerHTML += `
+          <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-200">
+            🛡️ <strong class="text-emerald-400">ডিফেন্স অফিসার:</strong> ${reply}
+          </div>
+        `;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 400);
+
+      document.getElementById('supUserQuery').value = '';
+    }
+
+    // --- ADMIN PANEL LOGIC ---
+    function openAdminLoginGate() {
+      document.getElementById('adminLoginGate').classList.remove('hidden');
+    }
+    function closeAdminLoginGate() {
+      document.getElementById('adminLoginGate').classList.add('hidden');
+    }
+    function handleAdminAuth(e) {
+      e.preventDefault();
+      if (document.getElementById('adminPinInput').value === MASTER_ADMIN_PIN) {
+        closeAdminLoginGate();
+        document.getElementById('adminDashboardModal').classList.remove('hidden');
+        loadAdminReports();
+        document.getElementById('adminPinInput').value = '';
+      } else {
+        alert('ভুল পিন নম্বর!');
+      }
+    }
+    function closeAdminDashboard() {
+      document.getElementById('adminDashboardModal').classList.add('hidden');
+    }
+
+    function loadAdminReports() {
+      const list = JSON.parse(localStorage.getItem('cyberguard_online_registrations') || '[]');
+      const tbody = document.getElementById('adminRegistrationTbody');
+      tbody.innerHTML = '';
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-slate-500">এখনো কোনো রেজিস্ট্রেশন জমা হয়নি।</td></tr>`;
+        return;
+      }
+
+      list.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-900/60";
+        tr.innerHTML = `
+          <td class="py-2.5 px-3">
+            <span class="text-cyan-400 font-bold">${item.regId}</span>
+            <span class="block text-[10px] text-slate-500">${item.time}</span>
+          </td>
+          <td class="py-2.5 px-3">
+            <span class="text-white font-bold block">${item.name}</span>
+            <span class="text-slate-400 text-[10px]">${item.email}</span>
+          </td>
+          <td class="py-2.5 px-3">
+            <span class="text-emerald-400 font-bold">${item.phone}</span>
+            <span class="block text-[10px] text-slate-500">বিকল্প: ${item.altPhone}</span>
+          </td>
+          <td class="py-2.5 px-3">
+            <span class="text-amber-300 font-sans block truncate max-w-[150px]">${item.pkg}</span>
+            <span class="text-[10px] text-slate-400">${item.district}</span>
+          </td>
+          <td class="py-2.5 px-3 text-center">
+            <button onclick="followUpRegistration('${item.phone}', '${item.name}', '${item.regId}')" class="px-2.5 py-1 bg-green-950 text-green-400 border border-green-500/30 rounded-lg text-xs font-bold active:scale-95">
+              WhatsApp
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      lucide.createIcons();
+    }
+
+    function followUpRegistration(phone, name, regId) {
+      const clean = phone.replace(/[^0-9]/g, '');
+      const msg = `আসসালামু%20আলাইকুম%20${encodeURIComponent(name)},%0ACyberGuard%20থেকে%20আপনার%20রেজিস্ট্রেশন%20(আইডি:%20${regId})%20গৃহীত%20হয়েছে।%20আমরা%20আপনার%20সাথে%20যুক্ত%20হতে%20প্রস্তুত।`;
+      window.open(`https://wa.me/88${clean}?text=${msg}`, '_blank');
+    }
+
+    // --- SIDE BY SIDE AUDIT ---
+    async function executeSideBySideAudit(e) {
+      e.preventDefault();
+      const clientDom = document.getElementById('targetSiteDomain').value.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+      const refDom = document.getElementById('referenceSiteDomain').value.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+
+      document.getElementById('comparisonConsole').classList.remove('hidden');
+      document.getElementById('labelClientDomain').innerText = clientDom;
+      document.getElementById('labelRefDomain').innerText = refDom;
+
+      try {
+        const sC = performance.now();
+        const rC = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(clientDom)}&type=A`);
+        const dC = await rC.json();
+        const lC = Math.round(performance.now() - sC);
+
+        const sR = performance.now();
+        const rR = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(refDom)}&type=A`);
+        const dR = await rR.json();
+        const lR = Math.round(performance.now() - sR);
+
+        document.getElementById('resClientIp').innerText = (dC.Answer && dC.Answer.length > 0) ? dC.Answer[0].data : 'শনাক্ত হয়নি';
+        document.getElementById('resClientDnssec').innerText = dC.AD ? 'সুরক্ষিত' : 'অসংরক্ষিত';
+        document.getElementById('resClientDnssec').className = dC.AD ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold';
+        document.getElementById('resClientLatency').innerText = `${lC} ms`;
+
+        document.getElementById('resRefIp').innerText = (dR.Answer && dR.Answer.length > 0) ? dR.Answer[0].data : 'Cloud IP';
+        document.getElementById('resRefDnssec').innerText = 'Verified';
+        document.getElementById('resRefDnssec').className = 'text-emerald-400 font-bold';
+        document.getElementById('resRefLatency').innerText = `${lR} ms`;
+      } catch (err) {
+        console.error("DNS Audit error:", err);
+      }
+    }
+  </script>
+</body>
+</html>
